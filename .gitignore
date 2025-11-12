@@ -1,1 +1,23 @@
+# Flutter
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+pubspec.lock
 
+# Android
+*.iml
+*.gradle
+local.properties
+*.keystore
+
+# iOS
+Pods/
+DerivedData/
+
+# VS Code
+.vscode/
+
+# Misc
+*.log
