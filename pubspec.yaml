@@ -1,1 +1,32 @@
+name: formula_a
+description: A digital marketing calculator app with 20 tools and 22 screens.
+publish_to: 'none' # since it's not a public package
 
+version: 1.0.0+1
+
+environment:
+  sdk: '^3.4.0'
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+  provider: ^6.1.2
+  intl: ^0.19.0
+  google_fonts: ^6.2.1
+  shared_preferences: ^2.3.2
+  url_launcher: ^6.3.1
+  http: ^1.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
