@@ -1,2 +1,9 @@
-rootProject.name = "formula_ai"
+// Flutter-compatible settings.gradle file
+
 include(":app")
+
+setBinding(new Binding([gradle: this]))
+evaluate(new File(
+  settingsDir.parentFile,
+  "flutter/packages/flutter_tools/gradle/app_plugin_loader.gradle"
+))
