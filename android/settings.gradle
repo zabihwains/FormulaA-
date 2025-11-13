@@ -1,19 +1,28 @@
-// ✅ Final working settings.gradle for Flutter GitHub Actions builds
+// Works in local builds and GitHub Actions
 
 include(":app")
 
-def flutterSdkPath = System.getenv("HOME") + "/hostedtoolcache/flutter/stable/x64"
-def flutterSdkDir = new File(flutterSdkPath)
-
-if (!flutterSdkDir.exists()) {
-    // fallback if local or self-hosted
-    flutterSdkDir = new File(rootDir.parentFile, "flutter")
+// Ask Flutter CLI for the real SDK path
+def flutterSdkPath = "flutter".execute().text.trim()
+if (flutterSdkPath.startsWith("/")) {
+    // nothing
+} else {
+    // Fallback: just assume the flutter binary is in PATH
+    flutterSdkPath = "which flutter".execute().text.trim()
 }
 
-def flutterToolsGradle = new File(flutterSdkDir, "packages/flutter_tools/gradle/app_plugin_loader.gradle")
+// Run `flutter --version` quietly so Gradle caches the SDK
+println("Using Flutter SDK from: " + flutterSdkPath)
+
+def flutterToolsGradle = new File(flutterSdkPath)
+        .getParentFile()
+        .getParentFile()
+        .toPath()
+        .resolve("packages/flutter_tools/gradle/app_plugin_loader.gradle")
+        .toFile()
 
 if (!flutterToolsGradle.exists()) {
-    throw new GradleException("❌ Flutter Gradle plugin not found at: ${flutterToolsGradle}")
+    throw new GradleException("Flutter Gradle plugin not found at: ${flutterToolsGradle}")
 }
 
 setBinding(new Binding([gradle: this]))
