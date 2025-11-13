@@ -1,4 +1,4 @@
-name: formula-ai
+name: formula_ai
 description: A digital marketing calculator app with 20 tools.
 publish_to: 'none' # since it's not a public package
 
