@@ -1,9 +1,15 @@
-// Flutter-compatible settings.gradle file
+// Flutter-compatible settings.gradle for CI/CD (GitHub Actions)
 
 include(":app")
 
+def flutterProjectRoot = rootDir.getAbsoluteFile().getParentFile()
+def flutterSdkPath = System.getenv("FLUTTER_HOME") ?: "${flutterProjectRoot}/flutter"
+
+def flutterToolsGradle = new File(flutterSdkPath, "packages/flutter_tools/gradle/app_plugin_loader.gradle")
+
+if (!flutterToolsGradle.exists()) {
+    throw new GradleException("Flutter Gradle plugin not found at: ${flutterToolsGradle}")
+}
+
 setBinding(new Binding([gradle: this]))
-evaluate(new File(
-  settingsDir.parentFile,
-  "flutter/packages/flutter_tools/gradle/app_plugin_loader.gradle"
-))
+evaluate(flutterToolsGradle)
