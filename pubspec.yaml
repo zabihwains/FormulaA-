@@ -1,5 +1,5 @@
-name: formula_a
-description: A digital marketing calculator app with 20 tools and 22 screens.
+name: FormulaAİ
+description: A digital marketing calculator app with 20 tools.
 publish_to: 'none' # since it's not a public package
 
 version: 1.0.0+1
