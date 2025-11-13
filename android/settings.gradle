@@ -1,0 +1,2 @@
+rootProject.name = "formula_ai"
+include(":app")
