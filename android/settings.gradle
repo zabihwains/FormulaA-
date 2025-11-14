@@ -1,15 +1,8 @@
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
+include ':app'
+
+def flutterSdkPath = System.getenv("FLUTTER_HOME")
+if (flutterSdkPath == null || flutterSdkPath.isEmpty()) {
+    throw new GradleException("FLUTTER_HOME is not set. Set it to your Flutter SDK path.")
 }
 
-plugins {
-    id "dev.flutter.flutter-gradle-plugin" apply false
-}
-
-include ":app"
-
-apply from: "../packages/flutter_tools/gradle/app_plugin_loader.gradle"
+apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gradle"
