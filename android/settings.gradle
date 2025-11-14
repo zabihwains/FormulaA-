@@ -1,8 +1,18 @@
 include ':app'
 
-def flutterSdkPath = System.getenv("FLUTTER_HOME")
-if (flutterSdkPath == null || flutterSdkPath.isEmpty()) {
-    throw new GradleException("FLUTTER_HOME is not set. Set it to your Flutter SDK path.")
+def localProperties = new Properties()
+def localPropertiesFile = new File(rootDir, "local.properties")
+
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader("UTF-8") { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterSdkPath = localProperties.getProperty("flutter.sdk")
+
+if (flutterSdkPath == null) {
+    throw new GradleException("Flutter SDK not found. local.properties is missing flutter.sdk entry.")
 }
 
 apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gradle"
