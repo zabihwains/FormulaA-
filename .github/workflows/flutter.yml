@@ -19,16 +19,10 @@ jobs:
         with:
           flutter-version: '3.22.0'
 
-      - name: Fix Gradle Properties (Kotlin issue fix)
-        run: |
-          echo "org.gradle.jvmargs=-Xmx4G" >> android/gradle.properties
-          echo "android.useAndroidX=true" >> android/gradle.properties
-          echo "android.enableJetifier=true" >> android/gradle.properties
-
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build APK (verbose mode)
+      - name: Build APK (release)
         run: flutter build apk --release --verbose
 
       - name: Show output directories
@@ -37,7 +31,8 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Flutter-Release-Builds
+          name: Flutter-release-builds
           path: |
+            build/app/outputs/apk/release/
             build/app/outputs/flutter-apk/
             build/app/outputs/bundle/release/
