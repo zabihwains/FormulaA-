@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'roi_calculator.dart';
 import 'ctr_calculator.dart';
 import 'cpc_calculator.dart';
@@ -22,28 +23,57 @@ import 'nps_calculator.dart';
 
 class ScreensIndex {
   static Widget getScreen(String route) {
-    switch(route) {
-      case 'ROICalculator': return ROICalculator();
-      case 'CTRCalculator': return CTRCalculator();
-      case 'CPCCalculator': return CPCCalculator();
-      case 'CPMCalculator': return CPMCalculator();
-      case 'ConversionRateCalculator': return ConversionRateCalculator();
-      case 'BounceRateCalculator': return BounceRateCalculator();
-      case 'CLVCalculator': return CLVCalculator();
-      case 'CACCalculator': return CACCalculator();
-      case 'ROASCalculator': return ROASCalculator();
-      case 'GrossMarginCalculator': return GrossMarginCalculator();
-      case 'EngagementRateCalculator': return EngagementRateCalculator();
-      case 'EmailOpenRateCalculator': return EmailOpenRateCalculator();
-      case 'EmailClickRateCalculator': return EmailClickRateCalculator();
-      case 'CPLCalculator': return CPLCalculator();
-      case 'VideoCPMCalculator': return VideoCPMCalculator();
-      case 'ShareOfVoiceCalculator': return ShareOfVoiceCalculator();
-      case 'ChurnRateCalculator': return ChurnRateCalculator();
-      case 'RetentionRateCalculator': return RetentionRateCalculator();
-      case 'AOVCalculator': return AOVCalculator();
-      case 'NPSCalculator': return NPSCalculator();
-      default: return Scaffold(body: Center(child: Text('Screen not found')));
+    switch (route) {
+      case 'ROICalculator':
+        return ROICalculator();
+      case 'CTRCalculator':
+        return CTRCalculator();
+      case 'CPCCalculator':
+        return CPCCalculator();
+      case 'CPMCalculator':
+        return CPMCalculator();
+      case 'ConversionRateCalculator':
+        return ConversionRateCalculator();
+      case 'BounceRateCalculator':
+        return BounceRateCalculator();
+      case 'CLVCalculator':
+        return CLVCalculator();
+      case 'CACCalculator':
+        return CACCalculator();
+      case 'ROASCalculator':
+        return ROASCalculator();
+      case 'GrossMarginCalculator':
+        return GrossMarginCalculator();
+      case 'EngagementRateCalculator':
+        return EngagementRateCalculator();
+      case 'EmailOpenRateCalculator':
+        return EmailOpenRateCalculator();
+      case 'EmailClickRateCalculator':
+        return EmailClickRateCalculator();
+      case 'CPLCalculator':
+        return CPLCalculator();
+      case 'VideoCPMCalculator':
+        return VideoCPMCalculator();
+      case 'ShareOfVoiceCalculator':
+        return ShareOfVoiceCalculator();
+      case 'ChurnRateCalculator':
+        return ChurnRateCalculator();
+      case 'RetentionRateCalculator':
+        return RetentionRateCalculator();
+      case 'AOVCalculator':
+        return AOVCalculator();
+      case 'NPSCalculator':
+        return NPSCalculator();
+
+      default:
+        return const Scaffold(
+          body: Center(
+            child: Text(
+              'Screen not found',
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+        );
     }
   }
 }
