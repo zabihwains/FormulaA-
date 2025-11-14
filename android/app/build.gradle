@@ -1,15 +1,18 @@
-apply plugin: "com.android.application"
-apply plugin: "kotlin-android"
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+}
 
 def localProperties = new Properties()
-def localFile = rootProject.file('local.properties')
-if (localFile.exists()) {
-    localFile.withReader('UTF-8') { reader ->
+def localPropertiesFile = rootProject.file("local.properties")
+
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader("UTF-8") { reader ->
         localProperties.load(reader)
     }
 }
 
-def flutterRoot = localProperties.getProperty('flutter.sdk')
+def flutterRoot = localProperties.getProperty("flutter.sdk")
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -32,8 +35,15 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
 }
