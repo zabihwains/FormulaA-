@@ -1,17 +1,16 @@
-plugins {
-    id "com.android.application"
-    id "org.jetbrains.kotlin.android"
-    id "dev.flutter.flutter-gradle-plugin"
-}
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
 
 def localProperties = new Properties()
-def localPropertiesFile = rootProject.file("local.properties")
-
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader("UTF-8") { reader ->
+def localFile = rootProject.file('local.properties')
+if (localFile.exists()) {
+    localFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
     }
 }
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     namespace "com.formula.ai"
@@ -23,7 +22,6 @@ android {
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
     }
 
     compileOptions {
@@ -34,19 +32,8 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            shrinkResources false
-        }
-    }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.22"
-}
-
-flutter {
-    source "../.."
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
