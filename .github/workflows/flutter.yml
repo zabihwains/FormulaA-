@@ -25,7 +25,6 @@ jobs:
         with:
           flutter-version: "3.22.0"
 
-      # SECRET se keystore decode
       - name: Decode keystore from secret
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
@@ -34,7 +33,6 @@ jobs:
           echo "$KEYSTORE_BASE64" | base64 -d > android/app/release-key.jks
           ls -l android/app
 
-      # key.properties bilkul bina space ke (IMPORTANT)
       - name: Create key.properties
         run: |
           cat <<EOF > android/key.properties
