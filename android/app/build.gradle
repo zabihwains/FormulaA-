@@ -18,8 +18,15 @@ if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
-// 👇 VERY IMPORTANT: Flutter gradle script apply karo
+// Flutter ka gradle script
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+// 🔐 Keystore properties (GitHub Actions ya local key.properties se)
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 
 android {
     namespace "com.formula.ai"
@@ -34,6 +41,35 @@ android {
         multiDexEnabled true
     }
 
+    // 🔐 Signing config for release
+    signingConfigs {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                storeFile file(keystoreProperties["storeFile"])
+                storePassword keystoreProperties["storePassword"]
+                keyAlias keystoreProperties["keyAlias"]
+                keyPassword keystoreProperties["keyPassword"]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            // IMPORTANT: signing enable for release
+            signingConfig signingConfigs.release
+
+            // Agar ProGuard / shrink nahi chahiye:
+            minifyEnabled false
+            shrinkResources false
+
+            // Agar baad me R8/proguard lagana ho to:
+            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            // default debug config
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -42,22 +78,14 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
-    buildTypes {
-        release {
-            // Agar ProGuard nahi chahiye:
-            minifyEnabled false
-            shrinkResources false
-
-            // Agar baad me proguard chalaana ho to:
-            // signingConfig signingConfigs.release
-        }
-    }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    // AndroidX annotation
     implementation "androidx.annotation:annotation:1.7.0"
+
+    // MultiDex (safety)
     implementation "androidx.multidex:multidex:2.0.1"
 }
