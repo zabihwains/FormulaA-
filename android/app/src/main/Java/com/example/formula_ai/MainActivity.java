@@ -1,6 +1,6 @@
-package com.example.formula_a;
+package com.example.formula_ai;
 
 import io.flutter.embedding.android.FlutterActivity;
 
-public class MainActivity extends FlutterActivity {
+class MainActivity: FlutterActivity() {
 }
