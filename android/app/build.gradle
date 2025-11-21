@@ -22,10 +22,11 @@ android {
 
     defaultConfig {
         applicationId "com.formula.ai"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
 
     compileOptions {
@@ -46,5 +47,11 @@ android {
 }
 
 dependencies {
-    // Do not add Kotlin stdlib manually
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // IMPORTANT: androidx annotation
+    implementation "androidx.annotation:annotation:1.7.0"
+
+    // agar multiDex error aaye future me:
+    implementation "androidx.multidex:multidex:2.0.1"
 }
