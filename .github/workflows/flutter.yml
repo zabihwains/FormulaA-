@@ -23,22 +23,26 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.22.0" # apne project wali version ke kareeb rakhna
+          flutter-version: "3.22.0"
 
+      # Keystore ko GitHub Secret se decode kar ke file banayenge
       - name: Decode keystore from secret
         run: |
+          mkdir -p android/app
           echo "$KEYSTORE_BASE64" | base64 -d > android/app/release-key.jks
+          ls -l android/app
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
 
+      # key.properties file bilkul correct format me (no leading spaces)
       - name: Create key.properties
         run: |
           cat <<EOF > android/key.properties
-          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
-          keyPassword=${{ secrets.KEYSTORE_PASSWORD }}
-          keyAlias=${{ secrets.KEY_ALIAS }}
-          storeFile=release-key.jks
-          EOF
+storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+keyPassword=${{ secrets.KEY_PASSWORD }}
+keyAlias=${{ secrets.KEY_ALIAS }}
+storeFile=release-key.jks
+EOF
 
       - name: Flutter pub get
         run: flutter pub get
