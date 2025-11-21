@@ -14,6 +14,12 @@ if (localFile.exists()) {
 
 def flutterRoot = localProperties.getProperty("flutter.sdk")
 
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+// 👇 VERY IMPORTANT: Flutter gradle script apply karo
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     namespace "com.formula.ai"
@@ -39,8 +45,12 @@ android {
 
     buildTypes {
         release {
+            // Agar ProGuard nahi chahiye:
             minifyEnabled false
             shrinkResources false
+
+            // Agar baad me proguard chalaana ho to:
+            // signingConfig signingConfigs.release
         }
     }
 }
@@ -48,9 +58,6 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    // IMPORTANT: androidx annotation
     implementation "androidx.annotation:annotation:1.7.0"
-
-    // agar multiDex error aaye future me:
     implementation "androidx.multidex:multidex:2.0.1"
 }
