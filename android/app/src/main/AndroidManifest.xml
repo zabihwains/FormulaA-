@@ -3,7 +3,7 @@
     package="com.formula.ai">
 
     <application
-        android:label="formula_a"
+        android:label="formula_ai"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
